@@ -60,6 +60,7 @@
 #define DEVICE_DISCONNECTED_RAW -7040
 
 typedef uint8_t DeviceAddress[8];
+typedef uint8_t ScratchPad[9];
 
 class DallasTemperature
 {
@@ -229,7 +230,6 @@ public:
 #endif
 
 private:
-    typedef uint8_t ScratchPad[9];
 
     // parasite power on or off
     bool parasite;
@@ -250,9 +250,6 @@ private:
     // Take a pointer to one wire instance
     OneWire* _wire;
 
-    // reads scratchpad and returns the raw temperature
-    int16_t calculateTemperature(const uint8_t*, uint8_t*);
-
     void	blockTillConversionComplete(uint8_t);
 
 #if REQUIRESALARMS
@@ -266,6 +263,11 @@ private:
     AlarmHandler *_AlarmHandler;
 
 #endif
+
+public:
+
+    // reads scratchpad and returns the raw temperature
+    int16_t calculateTemperature(const uint8_t*, uint8_t*);
 
 };
 #endif
